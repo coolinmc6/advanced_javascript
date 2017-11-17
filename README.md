@@ -1,4 +1,4 @@
-<a name='top'></>
+<a name='top'></a>
 # README
 
 Advanced JavaScript lectures based on Asim Hussain's Udemy course: [https://www.udemy.com/top-javascript-interview-questions-and-answers/](https://www.udemy.com/top-javascript-interview-questions-and-answers/).
@@ -6,22 +6,22 @@ Advanced JavaScript lectures based on Asim Hussain's Udemy course: [https://www.
 1. [What is "use strict" and what does it do?](#strict)
 1. [Does JavaScript pass variables by reference or value?](#pass)
 1. [What are the different types in JavaScript?](#types)
-1. [What is the difference between == and ===?]()
-1. [What is NaN and how can we check for it?]()
-1. [What are the different scopes in Javascript?]()
-1. [What is variable hoisting?]()
-1. [What is an IIFE and why might you use it?]()
-1. [What are function closures?]()
-1. [What does the 'this' keyword mean?]()
-1. [What do the functions call, bind and apply do?]()
-1. [What is the prototype chain?]()
-1. [What is the difference between prototypal and classical inheritance?]()
-1. [What is the Constructor OO pattern (part 1)?]()
-1. [What is the Constructor OO pattern (part 2)?]()
-1. [What is CORS?]()
-1. [What is JSONP?]()
-1. [What is the difference between event capturing and bubbling?]()
-1. [What is the difference between stopPropagation and preventDefault()?]()
+1. [What is the difference between == and ===?](#equals)
+1. [What is NaN and how can we check for it?](#NaN)
+1. [What are the different scopes in Javascript?](#scopes)
+1. [What is variable hoisting?](#hoisting)
+1. [What is an IIFE and why might you use it?](#IIFE)
+1. [What are function closures?](#closures)
+1. [What does the 'this' keyword mean?](#this)
+1. [What do the functions call, bind and apply do?](#call-bind-apply)
+1. [What is the prototype chain?](#prototype-chain)
+1. [What is the difference between prototypal and classical inheritance?](#inheritance)
+1. [What is the Constructor OO pattern (part 1)?](#oo-pattern1)
+1. [What is the Constructor OO pattern (part 2)?](#oo-pattern2)
+1. [What is CORS?](#CORS)
+1. [What is JSONP?](#JSONP)
+1. [What is the difference between event capturing and bubbling?](#event-cap)
+1. [What is the difference between stopPropagation and preventDefault()?](#stopProp)
 ## Basics
 <a name='strict'></a>
 ### Lecture 3: What is "use strict" and what does it do?
@@ -104,6 +104,7 @@ a value to 'null' so if you see 'null', you can see that
 - This statement `(null == undefined)` evaluates to true, `(null === undefined)` evaluates to false
 [top](#top)
 
+<a name='equals'></a>
 ### Lecture 6: What is the difference between == and ===?
 - The triple equals, 'strict equality', checks for both type and equality while the double equals checks
 for equality in values
@@ -119,6 +120,7 @@ for equality in values
   - this table shows all the really crazy ways that JavaScript MAY convert certain values for a double equals
   - Lesson: use the triple equals (===)
 
+<a name='NaN'></a>
 ### Lecture 7: What is NaN and how can we check for it?
 - NaN compared to any other value is false (`NaN == false`, `NaN == 1`, etc.)
 - But weirdly enough, NaN compared to NaN is also false
@@ -150,40 +152,68 @@ var a = NaN;
 
 a !== a // evaluates to true
 ```
-[top](#top)
+[back to top](#top)
 
 ## Scopes
+<a name='scopes'></a>
 ### Lecture 8: What are the different scopes in Javascript?
 
+[back to top](#top)
+<a name='hoisting'></a>
 ### Lecture 9: What is variable hoisting?
 
+[back to top](#top)
+<a name='IIFE'></a>
 ### Lecture 10: What is an IIFE and why might you use it?
 
+[back to top](#top)
+<a name='closures'></a>
 ### Lecture 11: What are function closures?
 
+[back to top](#top)
 ## Object Orientation
+<a name='this'></a>
 ### Lecture 14: What does the 'this' keyword mean?
 
+[back to top](#top)
+<a name='call-bind-apply'></a>
 ### Lecture 15: What do the functions call, bind and apply do?
 
+[back to top](#top)
+<a name='prototype-chain'></a>
 ### Lecture 16: What is the prototype chain?
 
+[back to top](#top)
+<a name='inheritance'></a>
 ### Lecture 17: What is the difference between prototypal and classical inheritance?
 
+[back to top](#top)
+<a name='oo-pattern1'></a>
 ### Lecture 18: What is the Constructor OO pattern (part 1)?
 
+[back to top](#top)
+<a name='oo-pattern2'></a>
 ### Lecture 18: What is the Constructor OO pattern (part 2)?
 
+[back to top](#top)
+<a name='CORS'></a>
 ## Networking
 ### Lecture 21: What is CORS?
 
+[back to top](#top)
+<a name='JSONP'></a>
 ### Lecture 22: What is JSONP?
+
+[back to top](#top)
 
 
 
 ## Events
+<a name='event-cap'></a>
 ### Lecture 23: What is the difference between event capturing and bubbling?
 
+[back to top](#top)
+<a name='stopProp'></a>
 ### Lecture 24: What is the difference between stopPropagation and preventDefault()?
 
 [top](#top)

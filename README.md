@@ -1,12 +1,32 @@
+<a name='top'></>
 # README
 
 Advanced JavaScript lectures based on Asim Hussain's Udemy course: [https://www.udemy.com/top-javascript-interview-questions-and-answers/](https://www.udemy.com/top-javascript-interview-questions-and-answers/).
-[What is "use strict" and what does it do?](#strict)
 
+1. [What is "use strict" and what does it do?](#strict)
+1. [Does JavaScript pass variables by reference or value?](#pass)
+1. [What are the different types in JavaScript?](#types)
+1. [What is the difference between == and ===?]()
+1. [What is NaN and how can we check for it?]()
+1. [What are the different scopes in Javascript?]()
+1. [What is variable hoisting?]()
+1. [What is an IIFE and why might you use it?]()
+1. [What are function closures?]()
+1. [What does the 'this' keyword mean?]()
+1. [What do the functions call, bind and apply do?]()
+1. [What is the prototype chain?]()
+1. [What is the difference between prototypal and classical inheritance?]()
+1. [What is the Constructor OO pattern (part 1)?]()
+1. [What is the Constructor OO pattern (part 2)?]()
+1. [What is CORS?]()
+1. [What is JSONP?]()
+1. [What is the difference between event capturing and bubbling?]()
+1. [What is the difference between stopPropagation and preventDefault()?]()
 ## Basics
 <a name='strict'></a>
 ### Lecture 3: What is "use strict" and what does it do?
 
+<a name='pass'></a>
 ### Lecture 4: Does JavaScript pass variables by reference or value?
 - passing primitive types like numbers, strings and booleans => passed by value
 - objects are passed by reference
@@ -56,6 +76,7 @@ console.log(a) // {moo: 'too'}
   - We can only CHANGE prooperties, not create a whole new object
 
 ## Types and Equality
+<a name='types'></a>
 ### Lecture 5: What are the different types in JavaScript?
 - We have 5 primitives: Boolean, Number, String, Null, Undefined
 - and 1 non-primitive: Object
@@ -81,6 +102,7 @@ a value to 'null' so if you see 'null', you can see that
   - Null is a type and the Null type has only one value, 'null'.
   - Undefined is a type and the Undefined type has only one value, 'undefined'
 - This statement `(null == undefined)` evaluates to true, `(null === undefined)` evaluates to false
+[top](#top)
 
 ### Lecture 6: What is the difference between == and ===?
 - The triple equals, 'strict equality', checks for both type and equality while the double equals checks
@@ -128,6 +150,7 @@ var a = NaN;
 
 a !== a // evaluates to true
 ```
+[top](#top)
 
 ## Scopes
 ### Lecture 8: What are the different scopes in Javascript?
@@ -163,4 +186,5 @@ a !== a // evaluates to true
 
 ### Lecture 24: What is the difference between stopPropagation and preventDefault()?
 
+[top](#top)
 

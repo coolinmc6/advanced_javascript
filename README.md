@@ -1,9 +1,10 @@
 # README
 
 Advanced JavaScript lectures based on Asim Hussain's Udemy course: [https://www.udemy.com/top-javascript-interview-questions-and-answers/](https://www.udemy.com/top-javascript-interview-questions-and-answers/).
+[What is "use strict" and what does it do?](#strict)
 
 ## Basics
-### Lecture 3: What is "use strict" and what does it do?
+### Lecture 3: What is "use strict" and what does it do?<a name='strict'></a>
 
 ### Lecture 4: Does JavaScript pass variables by reference or value?
 - passing primitive types like numbers, strings and booleans => passed by value

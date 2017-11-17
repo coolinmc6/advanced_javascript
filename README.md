@@ -197,8 +197,32 @@ a !== a // evaluates to true
 ## Scopes
 <a name='scopes'></a>
 ### Lecture 8: What are the different scopes in Javascript?
+- any variable declared outside of a function is a global variable
+- all global variables are actually a property of the window object
+- function or local scope variables
+
+```js
+function moo() {
+	var foo = 1;
+}
+console.log(foo) // Uncaught ReferenceError:
+
+```
+- BUT...don't be confused with "block-level scope" which is something that JavaScript does not have; see below:
+
+```js
+for(var i = 1; i < 5; i++) {
+    var j = 5;
+}
+
+console.log(i);
+console.log(j);
+```
+- both `i` and `j` will be printed because JavaScript does not have block-level scope. We are
+creating global variables `i` and `j`;
 
 [back to top](#top)
+
 <a name='hoisting'></a>
 ### Lecture 9: What is variable hoisting?
 

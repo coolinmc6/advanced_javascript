@@ -58,6 +58,7 @@ eval("var a = 1");
 console.log(a);
 ```
 
+[back to top](#top)
 <a name='pass'></a>
 ### Lecture 4: Does JavaScript pass variables by reference or value?
 - passing primitive types like numbers, strings and booleans => passed by value
@@ -107,7 +108,10 @@ console.log(a) // {moo: 'too'}
   - notice that when we tried to change what it pointed to, i.e. removed the "moo" property, it didn't work.
   - We can only CHANGE prooperties, not create a whole new object
 
+[back to top](#top)
+
 ## Types and Equality
+
 <a name='types'></a>
 ### Lecture 5: What are the different types in JavaScript?
 - We have 5 primitives: Boolean, Number, String, Null, Undefined
@@ -134,7 +138,8 @@ a value to 'null' so if you see 'null', you can see that
   - Null is a type and the Null type has only one value, 'null'.
   - Undefined is a type and the Undefined type has only one value, 'undefined'
 - This statement `(null == undefined)` evaluates to true, `(null === undefined)` evaluates to false
-[top](#top)
+
+[back to top](#top)
 
 <a name='equals'></a>
 ### Lecture 6: What is the difference between == and ===?
@@ -151,6 +156,8 @@ for equality in values
 - [https://dorey.github.io/JavaScript-Equality-Table/](https://dorey.github.io/JavaScript-Equality-Table/)
   - this table shows all the really crazy ways that JavaScript MAY convert certain values for a double equals
   - Lesson: use the triple equals (===)
+
+[back to top](#top)
 
 <a name='NaN'></a>
 ### Lecture 7: What is NaN and how can we check for it?
@@ -184,6 +191,7 @@ var a = NaN;
 
 a !== a // evaluates to true
 ```
+
 [back to top](#top)
 
 ## Scopes

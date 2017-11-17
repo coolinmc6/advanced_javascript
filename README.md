@@ -22,9 +22,41 @@ Advanced JavaScript lectures based on Asim Hussain's Udemy course: [https://www.
 1. [What is JSONP?](#JSONP)
 1. [What is the difference between event capturing and bubbling?](#event-cap)
 1. [What is the difference between stopPropagation and preventDefault()?](#stopProp)
+
 ## Basics
 <a name='strict'></a>
 ### Lecture 3: What is "use strict" and what does it do?
+- ** may be worth re-doing with more permanent notes **
+- it makes debugging easier
+- prevents you from accidentally creating global variables
+- prevents you from naming variables that will be keywords in future JS verisons
+- doesn't let you delete arguments to functions, functions, or variables
+
+```js
+// "use strict";
+
+// not Strict mode
+function newCode() {
+    "use strict";
+
+    // Strict Mode
+}
+
+// this would not be allowed as it was never defined anywhere with "var asim ="
+asim = 1;
+
+var theVal = 0;
+
+thVal = 1;
+
+if(theVal > 0) {
+    console.log('hello')
+}
+
+// with eval and no "use strict", a can "leak out"
+eval("var a = 1");
+console.log(a);
+```
 
 <a name='pass'></a>
 ### Lecture 4: Does JavaScript pass variables by reference or value?
@@ -216,5 +248,5 @@ a !== a // evaluates to true
 <a name='stopProp'></a>
 ### Lecture 24: What is the difference between stopPropagation and preventDefault()?
 
-[top](#top)
+[back to top](#top)
 

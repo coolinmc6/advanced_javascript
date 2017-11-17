@@ -61,6 +61,7 @@ console.log(a) // {moo: 'too'}
 - Number => `1`, `1.0`
 - String => `"a"`, `'a'`
 - Null => `null`
+  - `typeof(null)` actually returns "object" and not "null"
 - Undefined => `undefined`
 - Object => `new Object()`
 - we can use `typeof()` to show an item's type
@@ -77,24 +78,87 @@ a value to 'null' so if you see 'null', you can see that
 - Both 'null' and 'undefined' in JavaScript each is its own value and type. 
   - Null is a type and the Null type has only one value, 'null'.
   - Undefined is a type and the Undefined type has only one value, 'undefined'
-- 
-
-
+- This statement `(null == undefined)` evaluates to true, `(null === undefined)` evaluates to false
 
 ### Lecture 6: What is the difference between == and ===?
-
+- The triple equals, 'strict equality', checks for both type and equality while the double equals checks
+for equality in values
+- `0 == '0'` evaluates to true
+  - JavaScript forces the 0 on the left to convert to the type on the right, a string.
+  - so it is essentially doing: `String(0) == '0'` which is true
+  - this is called type coercion
+- `false == 'false'` evaluates to false
+  - JavaScript actually tries to convert the `'false'` (on the right) to a Boolean
+  - `Boolean('false')` evalutes to true so.....`false == Boolean('false')` is really
+  `false == true` which is `false`
+- [https://dorey.github.io/JavaScript-Equality-Table/](https://dorey.github.io/JavaScript-Equality-Table/)
+  - this table shows all the really crazy ways that JavaScript MAY convert certain values for a double equals
+  - Lesson: use the triple equals (===)
 
 ### Lecture 7: What is NaN and how can we check for it?
+- NaN compared to any other value is false (`NaN == false`, `NaN == 1`, etc.)
+- But weirdly enough, NaN compared to NaN is also false
+  - NaN equal to ANYTHING is always false, even when compared to itself
+- `isNaN(NaN)` evaluates to true but see below:
 
+```js
+isNaN(NaN) // true
+isNaN(1) // evalutes to false; 1 is a number
+isNaN("1") // evaluates to false; '1' is a string coerced into a number which makes it false
+isNaN("A") // evaluates to true; 'A' is a string but cannot be coerced into a number which makes it true
+
+// BUT REMEMBER:
+NaN == "A" // evaluates to false
+```
+- The question above is complex because `NaN == NaN` is false AND `isNaN()` has the type coercision problems
+as shown above. So the question really is, given those two issues, what is the full-proof way of checking if
+something is `NaN`?
+  - **Answer:** check if it is not-equal to itself. Remember, `NaN == NaN` evaluates to false and thus
+  `NaN !== NaN` will evaluate to true. See below:
+
+```js
+// Normal values
+var a = 1;
+a !== a // evaluates to false; everything else in JS, when compared to itself, equals itself
+
+// NaN values
+var a = NaN;
+
+a !== a // evaluates to true
+```
 
 ## Scopes
+### Lecture 8: What are the different scopes in Javascript?
 
+### Lecture 9: What is variable hoisting?
+
+### Lecture 10: What is an IIFE and why might you use it?
+
+### Lecture 11: What are function closures?
 
 ## Object Orientation
+### Lecture 14: What does the 'this' keyword mean?
 
+### Lecture 15: What do the functions call, bind and apply do?
+
+### Lecture 16: What is the prototype chain?
+
+### Lecture 17: What is the difference between prototypal and classical inheritance?
+
+### Lecture 18: What is the Constructor OO pattern (part 1)?
+
+### Lecture 18: What is the Constructor OO pattern (part 2)?
 
 ## Networking
+### Lecture 21: What is CORS?
+
+### Lecture 22: What is JSONP?
+
 
 
 ## Events
+### Lecture 23: What is the difference between event capturing and bubbling?
+
+### Lecture 24: What is the difference between stopPropagation and preventDefault()?
+
 

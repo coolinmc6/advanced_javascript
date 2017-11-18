@@ -10,6 +10,7 @@ Advanced JavaScript lectures based on Asim Hussain's Udemy course: [https://www.
 1. [What is NaN and how can we check for it?](#NaN)
 1. [What are the different scopes in Javascript?](#scopes)
 1. [What is variable hoisting?](#hoisting)
+1. [What is the scope chain?](#scope-chain)
 1. [What is an IIFE and why might you use it?](#IIFE)
 1. [What are function closures?](#closures)
 1. [What does the 'this' keyword mean?](#this)
@@ -225,14 +226,200 @@ creating global variables `i` and `j`;
 
 <a name='hoisting'></a>
 ### Lecture 9: What is variable hoisting?
+- JavaScript automatically moves all variable and function declarations to the top of the scope.
+  - So in a global scope, it'd be the top of the page.
+  - in a function, it's at the top of the function
+
+```js
+"use strict"
+
+console.log(c) // undefined is consoled out
+var c = 1;
+```
+- but this is what JavaScript is actually doing:
+
+```js
+"use strict"
+var c;
+console.log(c);
+c = 1;
+```
+- hoisting is the pushing up of the declaration to the top of the scope
+- the same principle applies to inside a function
+
+[back to top](#top)
+<a name='scope-chain'></a>
+### Lecture 10: What is the scope chain?
+- the scope chain of a function starts by looking at the variables within that function. If it can't
+find the variable there, it moves out to any outer functions that it is in and then finally the
+global scope.
+
+```js
+"use strict";
+
+function foo() {
+    console.log(myvar);
+}
+
+function goo() {
+    var myvar = 1;
+    foo();
+}
+
+goo();
+```
+- This is the error we get:
+
+> main2.js:4 Uncaught ReferenceError: myvar is not defined
+
+- JavaScript resolves a variable by looking at its inner scopes and then all outer scopes until the global scope.
+- In the example above, `myvar` is defined inside goo() so it is not in foo's scope AND it wasn't defined in the
+global scope.
+
 
 [back to top](#top)
 <a name='IIFE'></a>
-### Lecture 10: What is an IIFE and why might you use it?
+### Lecture 11: What is an IIFE and why might you use it?
+- IIFE = Immediately Invoked Function Expression and is pronounced "iffy"
+- we are trying to solve the problem of polluting the global scope with variables that we don't use
+or accidentally over-write variables that we want
+- One thing we could do is to create a function and then immediately call it:
+
+```js
+"use strict"
+
+function otherScope() {
+  var thing = {'hello': 'other'};
+  console.log('other: ', thing);
+}
+otherScope();
+```
+  - in the above example, the variable we created `thing` won't overwrite our other variable `thing`
+  - This works but there is a quicker way:
+
+```js
+"use strict"
+
+(function() {
+  var thing = {'hello': 'other'};
+  console.log('other: ', thing);
+})();
+```
+  - the code above declares and then immediately calls the function.
+- To convert from a regular function to an IIFE:
+  1. remove the function name: `function otherScope(){` becomes `function(){`
+  1. remove the function call: `otherScope()` is deleted
+  1. wrap the whole function in parentheses: `(function(){ ... CODE ...})`
+  1. add open and close parentheses to immediately call: `(function(){ ... CODE ...})();`
+- Asim actually recommends wrapping all the content of all the files that we are running in an
+IIFE to remove any global variables
 
 [back to top](#top)
 <a name='closures'></a>
-### Lecture 11: What are function closures?
+### Lecture 12: What are function closures?
+- Here is a long definition of a closure that I will have to flesh out more later:
+
+> A closure is an inner function that has access to the outer (enclosing) function's variables—scope chain. 
+The closure has three scope chains: it has access to its own scope (variables defined between its 
+curly brackets), it has access to the outer function's variables, and it has access to the global variables.
+
+```js
+"use strict";
+
+function sayHello(name) {
+    var text = "Hello " + name;
+    return function() {
+        console.log(text);
+    }
+};
+
+var sayAsim = sayHello("Asim");
+sayAsim();
+```
+- This is where we are:
+  - in the above code, the sayHello function is returning an anonymous function that simply console.log's
+  the variable `text`
+  - We set the variable `sayAsim` equal to `sayHello('Asim')`. So now when we call `sayAsim()`, it 
+  logs "Hello Asim".
+- After the `sayHello()` function has returned, the `text` variable should have been deleted or "unavailable"
+to `sayAsim()`...**so what is happening here?**
+- the function that is returned **keeps a reference** to the `text` variable
+- **a closure is a special set of references to variables that a function needs in order to execute**
+- Closures can refer to variables in outer scopes
+
+```js
+// FIRST ITERATION: Introducing the closure problem
+"use strict";
+
+var foo = [];
+for(var i = 0; i < 10; i++) {
+    foo[i] = function() { return i};
+}
+
+console.log(foo[0]());  // 10
+console.log(foo[1]());  // 10
+console.log(foo[2]());  // 10
+```
+  - as you can see, this is tricky...we may think that it would log 1, 2, 3, etc. but it isn't
+  - Remember that with closures, you aren't getting a **copy** of `i` but a reference to it
+  - This function is not doing really what we wanted it to do. Here's one thing I tried that did NOT
+  work:
+
+```js
+// SECOND ITERATION: Colin's attempt (fails)
+"use strict";
+
+var foo = [];
+for(var i = 0; i < 10; i++) {
+    foo[i] = function() { 
+        var y = i;
+        return y;
+    };
+}
+
+console.log(foo[0]());  // 10
+console.log(foo[1]());  // 10
+console.log(foo[2]());  // 10
+```
+  - I thought declaring a new variable would work somehow but it doesn't. I needed to use an IIFE:
+
+```js
+// THIRD ITERATION: IIFE
+"use strict";
+
+var foo = [];
+for(var i = 0; i < 10; i++) {
+    (function(){
+        var y = i;
+        foo[i] = function() { return y };
+    })();
+}
+
+console.log(foo[0]());  // 0
+console.log(foo[1]());  // 1
+console.log(foo[2]());  // 2
+```
+  - I could also do it this way:
+
+```js
+// FOURTH ITERATION: Improved IIFE
+"use strict";
+
+var foo = [];
+for(var i = 0; i < 10; i++) {
+    (function(y){
+        foo[y] = function() { return y };
+    })(i); // passing in i as a variable
+}
+
+console.log(foo[0]());
+console.log(foo[1]());
+console.log(foo[2]());
+```
+  - I removed the variable `y` declaration and instead made it the variable that the IIFE accepts. I pass
+  the variable `i` in by including it inside the parentheses at the bottom of the IIFE call: `})(i);`
+  - Because primitives are passed by value and NOT by reference, `y` is really just a copy of `i` so we avoid
+  that problem from our first iteration where each function is referencing the same `i` variable
 
 [back to top](#top)
 ## Object Orientation
@@ -268,10 +455,8 @@ creating global variables `i` and `j`;
 <a name='JSONP'></a>
 ### Lecture 22: What is JSONP?
 
+
 [back to top](#top)
-
-
-
 ## Events
 <a name='event-cap'></a>
 ### Lecture 23: What is the difference between event capturing and bubbling?
@@ -282,3 +467,39 @@ creating global variables `i` and `j`;
 
 [back to top](#top)
 
+
+# Quizzes
+
+## Quiz 3
+- `a = 1` without "use strict" will not throw an error but declare a global variable called "a"
+  - Q: Why are global variables so bad? Why should they be avoided?
+- 'null' is its own type BUT `console.log(typeof(null))` print out "object", an error in JavaScript
+that is already too late to fix.
+
+```js
+"use strict";
+
+var name = 'igloo';
+
+var code = "var name = 'asim';";
+eval(code);
+console.log(name) // igloo
+```
+- Because we are in "use strict" mode, the name variable does not leak out and it remains 'igloo'
+
+```js
+var salary = "1000$";
+
+(function() {
+    console.log("Original salary was " + salary);
+    var salary = "5000$";
+    console.log("My new salary is " + salary);
+})();
+```
+  - the first console.log() here will log "Original salary was undefined"
+  - What's happening is that `salary` is being hoisted to the top of the IIFE (`var salary;`) and it is undefined
+  WITHIN THE IIFE.
+  - Despite `salary` be defined in the global scope, its the inner salary that the IIFE is looking for because it
+  was hoisted up to the top.
+  - To get this to work, we can simply change the inner `salary` declaration to `var sal = "5000$` instead, 
+  that way when the IIFE doesn't find `salary` in its inner scope and has to go to the global scope to get it.

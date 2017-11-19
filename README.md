@@ -426,9 +426,140 @@ console.log(foo[2]());
 <a name='this'></a>
 ### Lecture 14: What does the 'this' keyword mean?
 
+- using 'this' outside of any scope, 'this' is Window
+
+```js
+console.log(this)         // Window
+this.asim = 1;
+
+console.log(this.asim)    // 1
+console.log(window.asim)  // 1
+console.log(asim)         // 1
+```
+
+```js
+function checkThis() {
+    console.log(this)
+};
+
+checkThis();              // Window
+```
+- so thus far, in these two examples, `this` has referred to the global Window object
+
+```js
+var asim = {
+    checkThis: function() {
+        console.log(this);
+    }
+}
+asim.checkThis();
+```
+- here, `this` no longer refers to the global Window object but the asim object
+- `this` is determined by the calling context, the way in which a function is called
+- "use strict" prevents the use of the global window object being used for things that developers typically
+wouldn't want to use it for:
+
+```js
+var asim = {
+    checkThis: function() {
+        console.log(this);        // asim object
+
+        function checkOther() {
+            console.log(this)     // global Window object => this isn't really what we wanted to do
+            this.moo = 1;
+        }
+        checkOther();
+
+        console.log(this.moo);    // 1
+        console.log(window.moo)   // 1 => again, this isn't what you wanted...you wanted the asim object.
+    }
+}
+
+asim.checkThis();
+```
+- to solve for this, some people do the following:
+
+```js
+var asim = {
+    checkThis: function() {
+        var self = this;          // declare a new variable, 'self', and set that to 'this'
+        console.log(self);
+
+        function checkOther() {
+            console.log(self)
+            self.moo = 1;
+        }
+        checkOther();
+
+        console.log(self.moo);
+        console.log(window.moo);
+    }
+}
+
+asim.checkThis();
+```
+  - by declaring a new variable call self, you don't have to worry about what `this` is referring to. We know
+  that `self` refers to the asim object so that all other times that we refer to it
+- **revisit and get a better definition of this**
+
 [back to top](#top)
 <a name='call-bind-apply'></a>
 ### Lecture 15: What do the functions call, bind and apply do?
+- `this` is determined by context - HOW a function is executed
+- functions are actually objects and they can be treated as such
+- You can do `console.log(funcName)` to see the properties of your function, funcName, in the console
+- You can also add properties to your function like a normal object `funcName.moo = 1`
+- `asim.call()` just calls the function. So why use the `call()` method?
+  - using `call()` allows you to specify what `this` is...it sets the context
+- the parentheses method of calling a function, `asim.checkThis()`, the context is not set and window
+becomes your `this`. 
+  - in `"use strict"` mode, window does not get passed in and `this` will be set to nothing
+- the first parameter to the `call()` method is whatever you want `this` to be followed by the arguments
+for the function
+- the `apply()` function is another function available ON your functions, for example: `funcName.apply()`
+- it is very similar to "call" except for the arguments: the first parameter is your `this` and then
+next is an array of arguments
+  - `a.apply(1, [2,3,4])` => so '1' is my `this` and 2, 3, 4 are my arguments for my `a` function
+- **Why use call vs. apply?**
+  - normally you would just use call unless your function takes a variable number of parameters
+
+```js
+function sum() {
+    var total = 0;
+    for (var i = 0; i < arguments.length; i++) {
+        total += arguments[i];
+    }
+    return total;
+}
+
+var x = sum(1,2,3);
+console.log(x)                        // 6
+
+var things = [4,1,3,76,84,5,3,1,4,5];
+var y = sum.apply(null, things);
+console.log(y)                        // 186
+```
+- this function uses the arguments object which is an Array-like object that doesn't really have any
+array methods except `length`
+- the first example, `x`, is pretty intuitive
+- the second example uses `apply()`. The first argument is your `this` object, which we don't need
+and is null, and the second is your array of arguments
+- bind is another way to stabilize `this`
+
+```js
+var asim = {
+  checkThis: function() {
+    var checkOther = function() {
+      console.log(this)
+    }.bind(this)
+    checkOther();
+  }
+}
+
+asim.checkThis();
+```
+- the example above has a bind `this`, which has a context of `asim`, the object
+
 
 [back to top](#top)
 <a name='prototype-chain'></a>

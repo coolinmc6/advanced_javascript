@@ -565,17 +565,133 @@ asim.checkThis();
 <a name='prototype-chain'></a>
 ### Lecture 16: What is the prototype chain?
 
+- every object has a prototype. When looking for a property of an object, it first looks on that
+object but then it looks for its prototype. If that prototype is an object, and it looks on that
+object until it gets to that object's prototype. This is the prototype chain.
+
+```js
+var animal = {
+    kind: 'human'
+}
+
+var asim = {};
+asim.__proto__ = animal;
+
+console.log(animal);        // {kind: "human"}
+console.log(asim);          // {}
+console.log(asim.kind);     // human
+```
+  - notice that when I log out `animal`, I get the full object, `{kind: "human"}`
+  - when I log out `asim`, which is a prototype of `animal`, I get an empty object, `{}`
+  - when I log out `asim.kind`, I get 'human'. That is the prototype chain...the `kind` property
+  could not be found in the `asim` object so it went to its prototype, `animal`, where it did
+  find the "human" property
+- another way to create the `asim` object with the prototype, `animal`, is to use the `Object.create()`
+method: `var asim = Object.create(animal);`
+  - this will result in the same logs as above
+- I can also add my own properties to the object: `var asim = Object.create(animal, { food: { value: "mango"}});`
+  - this sytanx allows you to specify the prototype you want (`animal`), and then add additional
+  properties. In the above example, we are adding the food property which has a value of "mango"
+  - **Note:** this code fails: `var asim = Object.create(animal, { food: "mango"});`. This is my error:
+  
+> Uncaught TypeError: Property description must be an object: mango
+  
+- **Summary**
+  - objects in JavaScript are linked to others in what's called a prototype chain
+  - JavaScript traverses this chain when looking for a property and will only return `undefined` if
+  it can't find the property in ANY of the objects in the prototype chain
+  - you can manually edit the chain with the `__proto__` property in some browsers (i.e. Chrome)
+  - ...but you can also use the `Object.create()` method and manually add properties.  **THIS IS THE**
+  **RECOMMENDED WAY**
+
 [back to top](#top)
 <a name='inheritance'></a>
 ### Lecture 17: What is the difference between prototypal and classical inheritance?
+
+- "Classical" inheritance is really talking about the methods of object orientation.
+- A "class" that acts as a blueprint or architectual diagram for an object and then you 
+need to create an instance of that class
+- in JavaScript, inheritance works using prototypes - in prototypal inheritance, new objects are
+created using previously created objects.
+  - there is a parent "Object" for all objects in JavaScript
+- There is a method of JavaScript of emulating the more classical object-oriented form using 
+classes and that's called the *Pseudo-Classical Pattern* but, again, it's only faking it...all
+inheritance in JavaScript is prototypal
 
 [back to top](#top)
 <a name='oo-pattern1'></a>
 ### Lecture 18: What is the Constructor OO pattern (part 1)?
 
+- this is how you do psuedo-classical inheritance, which mimics in syntax the style the OO 
+paradigms in other languages like Java or C++
+- come people refer to this as "classical inheritance" but it isn't really. This is really 
+the constructor pattern
+- we can mimic the pattern using function constructor
+- This is my Person constructor that takes two arguments, `first_name` and `last_name`
+
+```js
+function Person(first_name, last_name) {
+    this.first_name = first_name;
+    this.last_name = last_name;
+};
+```
+- To create a new object, I must instantiate one using the `new` keyword
+
+```js
+var dude = new Person("asim", "hussain");
+console.log(dude);
+```
+  - the code below fails because it does NOT have the keyword `new`. Also notice how the context of
+  `this` is not set without the `new` keyword
+  
+```js
+// this fails
+var dude = Person("asim", "hussain");
+console.log(dude);
+```
+- A new instance of a Person can also be instantiated by doing the following:
+
+```js
+var dude = {};
+Person.call(dude, "asim", "hussain");
+console.log(dude);
+```
+
+- We can also add methods to our Person pseudo-class:
+
+```js
+function Person(first_name, last_name) {
+    
+    this.first_name = first_name;
+    this.last_name = last_name;
+    this.full_name = function() {
+        return this.first_name + ' ' + this.last_name;
+    }
+};
+
+console.log(dude.full_name())       // asim hussain
+```
+- You can also create functions and add them to the prototype of an object.  **Why is this**
+**important?**
+  - every new instance of `Person`, we are creating all the same properties and methods. So for
+  `dude`, it has three properties: `first_name`, `last_name`, and `full_name()`.
+  - The method `full_name()` just produces the Person object's full name but each instance of
+  Person essentially re-creates that method, and this creates bloat.
+  - Adding a method to the *prototype* of the class can save memory:
+
+```js
+Person.prototype.full_name_prototype = function() {
+    return this.first_name + ' ' + this.last_name;
+}
+```
+- if you are creating a ton of instances, add your method to the prototype. Per Asim: most of the
+time, putting your member functions on the prototype of the pseudo-class is best.
+- One advantage to it being on the instance itself is that you can effectively create "private" 
+methods or properties available only to that object
+
 [back to top](#top)
 <a name='oo-pattern2'></a>
-### Lecture 18: What is the Constructor OO pattern (part 2)?
+### Lecture 19: What is the Constructor OO pattern (part 2)?
 
 [back to top](#top)
 <a name='CORS'></a>
@@ -634,3 +750,78 @@ var salary = "1000$";
   was hoisted up to the top.
   - To get this to work, we can simply change the inner `salary` declaration to `var sal = "5000$` instead, 
   that way when the IIFE doesn't find `salary` in its inner scope and has to go to the global scope to get it.
+
+## Quiz 4
+- the default for `this` is the global object (which is 'window' in a browser)
+- in `"use strict"` mode, the default value of `this` is undefined
+
+```js
+"use strict";
+
+var animal = {
+  kind: "Cow",
+  which: function () {
+    console.log(this.kind);
+  }
+};
+animal.which();             // Cow
+```
+  - in the above example, because the context of the calling function is `animal`, `this` is "Cow"
+
+```js
+"use strict";
+ 
+var animal = {
+  kind: "Cow",
+  which: function () {
+    console.log(this.kind);
+  }
+};
+var animalFunc = animal.which;
+animalFunc();
+```
+  - in the above example, we aren't calling the function directly from the animal object so we get an error
+
+> Uncaught TypeError: Cannot read property 'kind' of undefined
+
+```js
+"use strict";
+function sayHello(last_name) {
+  console.log("Hello " + this + " " + last_name);
+}
+sayHello.call("Asim", "Hussain");       // Hello Asim Hussain
+```
+  - the `call()` method allows us to set the context for `this`. In this example, we are setting `this`
+  to "Asim" so it logs out "Hello Asim Hussain"
+
+```js
+"use strict";
+
+function sayHello(last_name) {
+  console.log("Hello " + this + " " + last_name);
+}.bind("Asim");
+
+sayHello("Hussain");
+```
+  - this fails: bind can only be used on functions after they have been created and 
+  **assigned to a variable**
+  - I guess that means I should use bind by doing the below
+
+> Uncaught SyntaxError: Unexpected token .
+
+```js
+"use strict";
+
+var sayHello = function(last_name) {
+  console.log("Hello " + this + " " + last_name);
+}.bind("Asim");
+
+sayHello("Hussain");
+```
+  - this works: bind can be used on function expressions to fix the value of `this` regardless
+  how the function is called later on
+
+
+
+
+

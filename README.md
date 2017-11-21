@@ -19,6 +19,7 @@ Advanced JavaScript lectures based on Asim Hussain's Udemy course: [https://www.
 1. [What is the difference between prototypal and classical inheritance?](#inheritance)
 1. [What is the Constructor OO pattern (part 1)?](#oo-pattern1)
 1. [What is the Constructor OO pattern (part 2)?](#oo-pattern2)
+1. [What is the Prototype OO pattern?](#oo-prototype)
 1. [What is CORS?](#CORS)
 1. [What is JSONP?](#JSONP)
 1. [What is the difference between event capturing and bubbling?](#event-cap)
@@ -693,10 +694,115 @@ methods or properties available only to that object
 <a name='oo-pattern2'></a>
 ### Lecture 19: What is the Constructor OO pattern (part 2)?
 
+```js
+"use strict"
+
+function Person(first_name, last_name) {
+    this.first_name = first_name;
+    this.last_name = last_name;
+    
+};
+
+Person.prototype.full_name = function() {
+    return this.first_name + ' ' + this.last_name;
+}
+
+function Professional(honorific, first_name, last_name) {
+    Person.call(this, first_name, last_name);
+    this.honorific = honorific;
+}
+
+Professional.prototype.professional_name = function() {
+    return this.honorific + " " + this.first_name + " " + this.last_name;
+}
+
+var prof = new Professional("Dr.", "Asim", "Hussain");
+console.log(prof.professional_name());      // Dr. Asim Hussain
+console.log(prof.full_name());              // error
+```
+
+> Uncaught TypeError: prof.full_name is not a function
+
+- so our problem is that we're not actually inheriting from the Person class. The `full_name()` method
+is not in the prototype chain for Professional.  Here is how we fix that:
+
+```js
+// CODE
+
+Professional.prototype = Object.create(Person.prototype);
+
+// CODE
+```
+- now, although we didn't
+
+[back to top](#top)
+<a name='oo-prototype'></a>
+### Lecture 20: What is the Prototype OO pattern?
+
+- This is an alternative object-oriented solution for inheritance
+- prototypal inheritance is just the prototype chain - there is no classes that we have to worry about
+- this is seen as a more natural type of OO programming in JavaScript
+
+```js
+"use strict"
+
+var Person = {
+    init: function(first_name, last_name) {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        return this;
+    },
+    full_name: function() {
+        return this.first_name + ' ' + this.last_name;
+    }
+}
+
+var asim = Object.create(Person);
+asim.init("asim", "hussain");
+console.log(asim.full_name());
+```
+- here, we have simply create a Person object `var asim = Object.create(Person)`
+- on it we have two functions: `init()` and `full_name()`
+- we create the object first and then call `init` to set the `first_name` and `last_name` properties
+- Another way to do without the `init` method:
+
+```js
+var asim = Object.create(Person, {
+  first_name: {
+    value: "Asim"
+  }, 
+  last_name: {
+    value: "Hussain"
+  }
+});
+```
+- a third way to do it would be:
+
+```js
+function PersonFactory(first_name, last_name) {
+    var person = Object.create(Person);
+    person.first_name = first_name;
+    person.last_name = last_name;
+    return person;
+}
+
+var asim = PersonFactory("asim", "hussain");
+console.log(asim.full_name())
+```
+- when would you use the prototype pattern vs. the pseudo-classical or constructor pattern.
+- Constructor Pattern
+  - it used everywhere - very popular
+  - it will feel more natural
+- Prototype Pattern
+  - more natural way of doing object orientation in JavaScript
+
+
+
 [back to top](#top)
 <a name='CORS'></a>
 ## Networking
 ### Lecture 21: What is CORS?
+
 
 [back to top](#top)
 <a name='JSONP'></a>
@@ -708,13 +814,13 @@ methods or properties available only to that object
 <a name='event-cap'></a>
 ### Lecture 23: What is the difference between event capturing and bubbling?
 
+
 [back to top](#top)
 <a name='stopProp'></a>
 ### Lecture 24: What is the difference between stopPropagation and preventDefault()?
 
+
 [back to top](#top)
-
-
 # Quizzes
 
 ## Quiz 3
@@ -821,7 +927,30 @@ sayHello("Hussain");
   - this works: bind can be used on function expressions to fix the value of `this` regardless
   how the function is called later on
 
+## Quiz 5
 
+- this is the constructor pattern. It uses the `new` keyword to generate an instance of a pseudo-class
 
+```js
+function Device(kind) {
+  this.kind = kind;
+}
 
+var product = new Device("music player");
+```
+- The example below shows a constructor function that references the value that was originally passed in
+
+```js
+function Device(kind) {
+  this.kind = kind;
+  this.printKind = function() {
+    console.log(kind);
+  }
+}
+
+var product = new Device("music player");
+product.kind = "radio";
+product.printKind();            // music player
+```
+  - "music player" and not "radio" is logged because
 

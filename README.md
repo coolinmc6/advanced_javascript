@@ -802,11 +802,67 @@ console.log(asim.full_name())
 <a name='CORS'></a>
 ## Networking
 ### Lecture 21: What is CORS?
+- CORS = Cross Origin Resource Sharing
+- CORS allows you to break the same origin policy of a browser
+- CORS allows you to selectively unblock certain requests
+- To enable CORS, the browser will always send the origin to the server and it expects the server
+to respond with Access-Control-Allow-Origin: domain (making the request) or a star
+- It's not the request that gets blocked it's the promise that gets blocked
+- a pre-flight request of HTTP method of type options request
+- Access-Control-Request-Method: PUT => the kind of request that we want to do
+- To make CORS work, you need to coordinate with the other server you are responding to
+- the Access-Control-Allow-Origin must match the domain that you are trying to allow
+- Play around with this site: [http://test-cors.org/](http://test-cors.org/)
+- **GET Request - No CORS**
+  - No changes needed
+  - Go to Dev Tools > Network, clear it and then "Send Request"
+  - Notice how it's a status code of 200 (it was received) BUT in the console, you get an error
+  but CORS is not allowed
+  - See how in the Response Headers there is no `access-control-allow-origin` key
+  - Q: Who's response is it?
+- **I should play around and check out some more examples**
 
 
 [back to top](#top)
 <a name='JSONP'></a>
 ### Lecture 22: What is JSONP?
+- JSONP is the solution to the problem posed by CORS
+- JSONP is something that predates CORS
+- JSONP only works with GET requests (no PUT, POST, DELETE)
+
+```json
+// JSON format
+[
+  {
+    "id": 1,
+    "first_name": "Asim", 
+    "last_name": "Hussain"
+  }
+]
+
+// JSONP format
+asimFunction([
+  {
+    "id": 1,
+    "first_name": "Asim", 
+    "last_name": "Hussain"
+  }
+])
+```
+- JSONP wraps json in a function
+- a regular script tag does not need to be from the same domain. If the script points to another server, 
+it won't be blocked
+- When you make a JSONP request, you tell the server to wrap its response in a function that you name
+(typically in your request) and inside the function, it contains the JSON response you wanted
+- you won't see it in your XHR requests, the browser treats it differently because its a script tag
+- Asim created a function that does the following:
+  - creates a script tag `var script = document.createElement('script')`
+  - changes its source, `src`, to the url that we are looking for
+  - appends it to the document's head tag
+  - in the url, there is a parameter (`...&callback=processWeather`) that tells Yahoo the name of the
+  function we are wrapping our JSON in
+  - and then we have a function called `processWeather(data)` that logs the data received
+  
 
 
 [back to top](#top)
@@ -953,4 +1009,11 @@ product.kind = "radio";
 product.printKind();            // music player
 ```
   - "music player" and not "radio" is logged because
+
+## Quiz 6
+- CORS = Cross Origin Resource Sharing
+- Before making a non-GET request (i.e. POST, PUT, DELETE), the browser sends a pre-flight OPTIONS
+request to see if the browser is allowed to make a particular request
+- When we make a POST CORS request, the response to the pre-flight request needs to contain a header with a specific value. This would be an acceptable response for the browser to allow the POST request:
+  - `Access-Control-Request-Method: POST, PUT, GET, DELETE`
 

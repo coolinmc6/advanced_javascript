@@ -3,6 +3,10 @@
 
 Advanced JavaScript lectures based on Asim Hussain's Udemy course: [https://www.udemy.com/top-javascript-interview-questions-and-answers/](https://www.udemy.com/top-javascript-interview-questions-and-answers/).
 
+**Links:**
+[https://github.com/coolinmc6/modern-javascript](https://github.com/coolinmc6/modern-javascript)
+
+
 **Basics**
 
 1. [What is "use strict" and what does it do?](#strict)
@@ -13,11 +17,17 @@ Advanced JavaScript lectures based on Asim Hussain's Udemy course: [https://www.
 1. [What are the different types in JavaScript?](#types)
 1. [What is the difference between == and ===?](#equals)
 1. [What is NaN and how can we check for it?](#NaN)
+
+**Scopes**
+
 1. [What are the different scopes in Javascript?](#scopes)
 1. [What is variable hoisting?](#hoisting)
 1. [What is the scope chain?](#scope-chain)
 1. [What is an IIFE and why might you use it?](#IIFE)
 1. [What are function closures?](#closures)
+
+**Object Orientation**
+
 1. [What does the 'this' keyword mean?](#this)
 1. [What do the functions call, bind and apply do?](#call-bind-apply)
 1. [What is the prototype chain?](#prototype-chain)
@@ -25,8 +35,14 @@ Advanced JavaScript lectures based on Asim Hussain's Udemy course: [https://www.
 1. [What is the Constructor OO pattern (part 1)?](#oo-pattern1)
 1. [What is the Constructor OO pattern (part 2)?](#oo-pattern2)
 1. [What is the Prototype OO pattern?](#oo-prototype)
+
+**Networks**
+
 1. [What is CORS?](#CORS)
 1. [What is JSONP?](#JSONP)
+
+**Events**
+
 1. [What is the difference between event capturing and bubbling?](#event-cap)
 1. [What is the difference between stopPropagation and preventDefault()?](#stopProp)
 

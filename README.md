@@ -3,8 +3,13 @@
 
 Advanced JavaScript lectures based on Asim Hussain's Udemy course: [https://www.udemy.com/top-javascript-interview-questions-and-answers/](https://www.udemy.com/top-javascript-interview-questions-and-answers/).
 
+**Basics**
+
 1. [What is "use strict" and what does it do?](#strict)
 1. [Does JavaScript pass variables by reference or value?](#pass)
+
+**Types & Equality**
+
 1. [What are the different types in JavaScript?](#types)
 1. [What is the difference between == and ===?](#equals)
 1. [What is NaN and how can we check for it?](#NaN)

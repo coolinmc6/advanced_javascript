@@ -869,12 +869,51 @@ it won't be blocked
 ## Events
 <a name='event-cap'></a>
 ### Lecture 23: What is the difference between event capturing and bubbling?
+- let's say we have:
 
+```html
+<!-- WINDOW -->
+<html>
+  <body class="item">
+    <div class="item first">
+      <div class="item second">
+        <div class="item third">
+          <div class="item fourth">Click Me</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<!-- WINDOW -->
+```
+- The event always start from the root (Window), down to the target, and then back up to the root
+- So when you click on the button, it actually starts at the Window and travels to the document, the
+body, the first div, the second dive, and so on. This is called the Event Capturing Phase.
+- It then carries on back up to the root again. This is called the Event Bubbling Phase.
+- There are two phases:
+  - Phase 1: Event Capturing Phase
+  - Phase 2: Event Bubbling Phase
+- when you add an event listener, you can choose the phase (Event Capturing Phase or Event Bubbling Phase)
+
+```js
+var items = document.getElementsByClassName("item");
+for (var i = 0; i < items.length; i++) {
+  (function() {
+    var y = i;
+    items[y].addEventListener('click', function(event) {
+      console.log(items[y], event);
+    }, true);
+  })();
+}
+```
 
 [back to top](#top)
 <a name='stopProp'></a>
 ### Lecture 24: What is the difference between stopPropagation and preventDefault()?
-
+- `stopPropagation()` stops the event from traveling DOWN the Event Capturing Phase or UP the Event
+Bubbling Phase
+- it prevents it from moving to the next part
+- `preventDefault()` stops the default behavior that the event would have triggered
 
 [back to top](#top)
 # Quizzes
@@ -1017,3 +1056,5 @@ request to see if the browser is allowed to make a particular request
 - When we make a POST CORS request, the response to the pre-flight request needs to contain a header with a specific value. This would be an acceptable response for the browser to allow the POST request:
   - `Access-Control-Request-Method: POST, PUT, GET, DELETE`
 
+## Quiz 7
+- Event capturing happens first

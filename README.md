@@ -116,8 +116,8 @@ foo(a)
 console.log(a) // {moo: false} => object was changed
 ```
   - in this example, the actual object that is being passed in, a, is changed.
-  - don't let the use of "a" in the `foo()` function confuse you; whether I used `b`, `obj`, etc., the property
-  of the actual object `a` is changed
+  - don't let the use of "a" in the `foo()` function confuse you; whether I used `b`, `obj`, etc., 
+  the property of the actual object `a` is changed
   - you may be able to change the actual object but you CANNOT change what it's pointing to:
 
 ```js
@@ -178,7 +178,7 @@ for equality in values
   `false == true` which is `false`
 - [https://dorey.github.io/JavaScript-Equality-Table/](https://dorey.github.io/JavaScript-Equality-Table/)
   - this table shows all the really crazy ways that JavaScript MAY convert certain values for a double equals
-  - Lesson: use the triple equals (===)
+- **Lesson: use the triple equals (===)**
 
 [back to top](#top)
 

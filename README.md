@@ -646,7 +646,7 @@ inheritance in JavaScript is prototypal
 
 - this is how you do psuedo-classical inheritance, which mimics in syntax the style the OO 
 paradigms in other languages like Java or C++
-- come people refer to this as "classical inheritance" but it isn't really. This is really 
+- some people refer to this as "classical inheritance" but it isn't really. This is really 
 the constructor pattern
 - we can mimic the pattern using function constructor
 - This is my Person constructor that takes two arguments, `first_name` and `last_name`
@@ -761,7 +761,7 @@ Professional.prototype = Object.create(Person.prototype);
 ### Lecture 20: What is the Prototype OO pattern?
 
 - This is an alternative object-oriented solution for inheritance
-- prototypal inheritance is just the prototype chain - there is no classes that we have to worry about
+- prototypal inheritance is just the prototype chain - there are no classes that we have to worry about
 - this is seen as a more natural type of OO programming in JavaScript
 
 ```js

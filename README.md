@@ -808,7 +808,7 @@ function PersonFactory(first_name, last_name) {
 }
 
 var asim = PersonFactory("asim", "hussain");
-console.log(asim.full_name())
+console.log(asim.full_name());
 ```
 - when would you use the prototype pattern vs. the pseudo-classical or constructor pattern.
 - Constructor Pattern
@@ -859,7 +859,7 @@ to respond with Access-Control-Allow-Origin: domain (making the request) or a st
     "first_name": "Asim", 
     "last_name": "Hussain"
   }
-]
+];
 
 // JSONP format
 asimFunction([
@@ -868,7 +868,7 @@ asimFunction([
     "first_name": "Asim", 
     "last_name": "Hussain"
   }
-])
+]);
 ```
 - JSONP wraps json in a function
 - a regular script tag does not need to be from the same domain. If the script points to another server, 

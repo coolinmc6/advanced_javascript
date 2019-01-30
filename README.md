@@ -691,7 +691,7 @@ function Person(first_name, last_name) {
     }
 };
 
-console.log(dude.full_name())       // asim hussain
+console.log(dude.full_name());       // asim hussain
 ```
 - You can also create functions and add them to the prototype of an object.  **Why is this**
 **important?**
@@ -704,7 +704,7 @@ console.log(dude.full_name())       // asim hussain
 ```js
 Person.prototype.full_name_prototype = function() {
     return this.first_name + ' ' + this.last_name;
-}
+};
 ```
 - if you are creating a ton of instances, add your method to the prototype. Per Asim: most of the
 time, putting your member functions on the prototype of the pseudo-class is best.

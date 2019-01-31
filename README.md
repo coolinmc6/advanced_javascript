@@ -678,7 +678,7 @@ var dude = {};
 Person.call(dude, "asim", "hussain");
 console.log(dude);
 ```
-
+- The code above is not entirely true. It is an object with those properties but it does not appear to have `Person` as its prototype. 
 - We can also add methods to our Person pseudo-class:
 
 ```js

@@ -99,7 +99,7 @@ function foo(a) {
     return a;
 }
 foo(a);
-console.log(a) // 1
+console.log(a); // 1
 ```
   - 1 is outputted because a, an integer, is passed by value to the function `foo()`
   - even if we change the value of `a` inside the function, when we console it out, it hasn't changed.
@@ -113,7 +113,7 @@ function foo(a) {
     a.moo = false; 
 }
 foo(a)
-console.log(a) // {moo: false} => object was changed
+console.log(a); // {moo: false} => object was changed
 ```
   - in this example, the actual object that is being passed in, a, is changed.
   - don't let the use of "a" in the `foo()` function confuse you; whether I used `b`, `obj`, etc., 
@@ -126,7 +126,7 @@ function foo(obj) {
     obj = {'a': 1}
 }
 foo(a)
-console.log(a) // {moo: 'too'}
+console.log(a); // {moo: 'too'}
 ```
   - notice that when we tried to change what it pointed to, i.e. removed the "moo" property, it didn't work.
   - We can only CHANGE prooperties, not create a whole new object
@@ -190,13 +190,13 @@ for equality in values
 - `isNaN(NaN)` evaluates to true but see below:
 
 ```js
-isNaN(NaN) // true
-isNaN(1) // evalutes to false; 1 is a number
-isNaN("1") // evaluates to false; '1' is a string coerced into a number which makes it false
-isNaN("A") // evaluates to true; 'A' is a string but cannot be coerced into a number which makes it true
+isNaN(NaN); // true
+isNaN(1); // evalutes to false; 1 is a number
+isNaN("1"); // evaluates to false; '1' is a string coerced into a number which makes it false
+isNaN("A"); // evaluates to true; 'A' is a string but cannot be coerced into a number which makes it true
 
 // BUT REMEMBER:
-NaN == "A" // evaluates to false
+NaN == "A"; // evaluates to false
 ```
 - The question above is complex because `NaN == NaN` is false AND `isNaN()` has the type coercision problems
 as shown above. So the question really is, given those two issues, what is the full-proof way of checking if
@@ -212,7 +212,7 @@ a !== a // evaluates to false; everything else in JS, when compared to itself, e
 // NaN values
 var a = NaN;
 
-a !== a // evaluates to true
+a !== a; // evaluates to true
 ```
 
 [back to top](#top)
@@ -228,7 +228,7 @@ a !== a // evaluates to true
 function moo() {
 	var foo = 1;
 }
-console.log(foo) // Uncaught ReferenceError:
+console.log(foo); // Uncaught ReferenceError:
 
 ```
 - BUT...don't be confused with "block-level scope" which is something that JavaScript does not have; see below:
@@ -255,7 +255,7 @@ creating global variables `i` and `j`;
 ```js
 "use strict"
 
-console.log(c) // undefined is consoled out
+console.log(c); // undefined is consoled out
 var c = 1;
 ```
 - but this is what JavaScript is actually doing:
@@ -456,7 +456,7 @@ this.asim = 1;
 
 console.log(this.asim)    // 1
 console.log(window.asim)  // 1
-console.log(asim)         // 1
+console.log(asim);        // 1
 ```
 
 ```js
@@ -559,7 +559,7 @@ console.log(x)                        // 6
 
 var things = [4,1,3,76,84,5,3,1,4,5];
 var y = sum.apply(null, things);
-console.log(y)                        // 186
+console.log(y);                        // 186
 ```
 - this function uses the arguments object which is an Array-like object that doesn't really have any
 array methods except `length`
@@ -952,7 +952,7 @@ var name = 'igloo';
 
 var code = "var name = 'asim';";
 eval(code);
-console.log(name) // igloo
+console.log(name); // igloo
 ```
 - Because we are in "use strict" mode, the name variable does not leak out and it remains 'igloo'
 

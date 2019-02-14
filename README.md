@@ -49,7 +49,9 @@ Advanced JavaScript lectures based on Asim Hussain's Udemy course: [https://www.
 ## Basics
 <a name='strict'></a>
 ### Lecture 3: What is "use strict" and what does it do?
+
 **may be worth re-doing with more permanent notes**
+
 - it makes debugging easier
 - prevents you from accidentally creating global variables
 - prevents you from naming variables that will be keywords in future JS verisons
